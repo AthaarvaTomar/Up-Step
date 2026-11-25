@@ -20,8 +20,8 @@ Source of truth: `PRD.md`. Agent rules: `AGENTS.md`.
 Goal: a blank app runs on my phone with Firebase connected.
 
 - [ ] [ME] Install Flutter and Android Studio SDK; enable USB debugging on my phone
-- [ ] [AI] Create the Flutter project (`--platforms android`) and add the PRD packages
-- [ ] [AI] Create folders `lib/{app,features/{limits,focus,memes,onboarding},data,native}`
+- [x] [AI] Create the Flutter project (`--platforms android,web`) and add the PRD packages
+- [x] [AI] Create folders `lib/{app,features/{limits,focus,memes,onboarding},data,native}`
 - [ ] [ME] Create the Firebase project; enable Anonymous Auth, Firestore, and Storage
 - [ ] [ME] Run `flutterfire configure` and add `google-services.json` as instructed
 - [ ] [AI] Wire `Firebase.initializeApp` and `ProviderScope` in `main()`; set the stock Material 3 theme
