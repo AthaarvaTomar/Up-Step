@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "964538289237",
+    "project_id": "focus-meme",
+    "storage_bucket": "focus-meme.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964538289237:android:125d0d4a8bcfae0374d8dc",
+        "android_client_info": {
+          "package_name": "com.athaarva.focusmeme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk2JYfoo8C-VuFtXfB1G3jw1S8mmcnYjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
