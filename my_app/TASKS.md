@@ -22,11 +22,11 @@ Goal: a blank app runs on my phone with Firebase connected.
 - [ ] [ME] Install Flutter and Android Studio SDK; enable USB debugging on my phone
 - [x] [AI] Create the Flutter project (`--platforms android,web`) and add the PRD packages
 - [x] [AI] Create folders `lib/{app,features/{limits,focus,memes,onboarding},data,native}`
-- [ ] [ME] Create the Firebase project; enable Anonymous Auth, Firestore, and Storage
-- [ ] [ME] Run `flutterfire configure` and add `google-services.json` as instructed
-- [ ] [AI] Wire `Firebase.initializeApp` and `ProviderScope` in `main()`; set the stock Material 3 theme
-- [ ] [AI] Add a basic `go_router` shell (`StatefulShellRoute`) with a `NavigationBar` and empty tabs: Home, Focus, Limits, Settings
-- [ ] [AI] Explain `ProviderScope` and each Firebase console step
+- [x] [ME] Create the Firebase project; enable Anonymous Auth, Firestore, and Storage
+- [x] [ME] Run `flutterfire configure` and add `google-services.json` as instructed
+- [x] [AI] Wire `Firebase.initializeApp` and `ProviderScope` in `main()`; set the stock Material 3 theme
+- [x] [AI] Add a basic `go_router` shell (`StatefulShellRoute`) with a `NavigationBar` and empty tabs: Home, Focus, Limits, Settings
+- [x] [AI] Explain `ProviderScope` and each Firebase console step
 - [ ] [ME] Run the blank app on my phone
 
 **Done when:** the app launches with no Firebase errors and the four tabs switch.
@@ -37,14 +37,14 @@ Goal: a blank app runs on my phone with Firebase connected.
 
 Goal: I can add, edit, and delete app limits, and they save to Firestore.
 
-- [ ] [AI] Anonymous sign-in provider (first-time anonymous sign-in requires network once; Firestore offline persistence works afterward)
-- [ ] [AI] Limits repository interface (add, update, delete, stream) with the data shape from PRD section 7, plus a stub
-- [ ] [AI] Riverpod providers for the limits actions and state, each with a doc comment (except the limits `StreamProvider`, which I write)
+- [x] [AI] Anonymous sign-in provider (first-time anonymous sign-in requires network once; Firestore offline persistence works afterward)
+- [x] [AI] Limits repository interface (add, update, delete, stream) with the data shape from PRD section 7, plus a stub
+- [x] [AI] Riverpod providers for the limits actions and state, each with a doc comment (except the limits `StreamProvider`, which I write)
 - [ ] [ME] Write the Firestore limits repository (implement the interface) and the Firestore security rules (`users/{uid}/**` owner-only); publish the rules in the console
 - [ ] [ME] Write the limits `StreamProvider` over the repository (about 10 lines)
-- [ ] [AI] Installed-apps provider (name, package) + minimal `MainActivity` `MethodChannel` stub for `getInstalledApps` using `<queries>` (`ACTION_MAIN`/`CATEGORY_LAUNCHER`, no `QUERY_ALL_PACKAGES`)
-- [ ] [AI] Basic Limits screen: `ListView` of `ListTile`s, a plain dialog with a number `TextField`, a `FilledButton` to save
-- [ ] [AI] Explain StreamProvider and `ref.watch` vs `ref.read`, with the 3-question check
+- [x] [AI] Installed-apps provider (name, package) + minimal `MainActivity` `MethodChannel` stub for `getInstalledApps` using `<queries>` (`ACTION_MAIN`/`CATEGORY_LAUNCHER`, no `QUERY_ALL_PACKAGES`)
+- [x] [AI] Basic Limits screen: `ListView` of `ListTile`s, a plain dialog with a number `TextField`, a `FilledButton` to save
+- [x] [AI] Explain StreamProvider and `ref.watch` vs `ref.read`, with the 3-question check
 - [ ] [ME] Read the providers and trace how the Limits screen uses them
 - [ ] [AI] Review my rules, repository and `StreamProvider`; explain what is wrong and why
 - [ ] [ME] Edit a limit in the Firebase console and confirm the screen updates live
