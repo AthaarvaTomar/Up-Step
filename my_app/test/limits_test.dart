@@ -6,6 +6,7 @@ import 'package:focusmeme/data/limits_repository.dart';
 import 'package:focusmeme/features/limits/limits_providers.dart';
 import 'package:focusmeme/features/limits/limits_screen.dart';
 import 'package:focusmeme/features/limits/limits_stream_provider.dart';
+import 'package:focusmeme/native/blocker_channel.dart';
 import 'package:focusmeme/native/installed_app.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -76,6 +77,9 @@ void main() {
         ProviderScope(
           overrides: [
             authUidProvider.overrideWith((ref) async => 'test-uid'),
+            blockerChannelProvider.overrideWithValue(
+              BlockerChannel(isAndroidOverride: false),
+            ),
             limitsRepositoryProvider.overrideWithValue(repo),
             limitsStreamProvider.overrideWith(
               (ref) => repo.watchLimits('test-uid'),

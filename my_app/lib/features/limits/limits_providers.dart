@@ -6,6 +6,7 @@ import '../../data/app_limit.dart';
 import '../../data/auth_providers.dart';
 import '../../data/limits_repository.dart';
 import '../../native/blocker_channel.dart';
+import '../../native/blocker_sync_service.dart';
 import '../../native/installed_app.dart';
 import 'limits_stream_provider.dart';
 
@@ -26,6 +27,25 @@ final blockerChannelProvider = Provider<BlockerChannel>((ref) {
   return BlockerChannel();
 });
 
+/// Provides the local-first, debounced [BlockerSyncService] that pushes limits,
+/// settings, and Pomodoro schedules to native Android storage.
+final blockerSyncServiceProvider = Provider<BlockerSyncService>((ref) {
+  final service = BlockerSyncService(ref.watch(blockerChannelProvider));
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+/// Keeps native Android storage synced whenever [limitsStreamProvider] emits
+/// remote Firestore updates (e.g. changes made in the Firebase Console).
+final limitsNativeSyncProvider = Provider<void>((ref) {
+  ref.listen<AsyncValue<List<AppLimit>>>(limitsStreamProvider, (_, next) {
+    final limits = next.value;
+    if (limits != null) {
+      ref.read(blockerSyncServiceProvider).syncLimitsFromStream(limits);
+    }
+  }, fireImmediately: true);
+});
+
 /// Loads the list of launchable apps installed on the Android device.
 ///
 /// Returns an empty list on Web, where the Limits screen falls back to manual
@@ -44,12 +64,18 @@ final limitsByPackageProvider = Provider<Map<String, AppLimit>>((ref) {
 
 /// Handles add, update, and delete mutations on app limits and exposes
 /// loading/error state for the UI via [AsyncValue].
+///
+/// Local-first (PRD section 6): pushes the change to native Android via
+/// [blockerSyncServiceProvider] immediately, before attempting Firestore sync,
+/// so a Firestore failure never blocks native enforcement.
 class LimitsActionsNotifier extends AsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
 
-  /// Saves a new [AppLimit] for the signed-in user.
+  /// Saves a new [AppLimit] locally to native first, then backs up to Firestore.
   Future<void> addLimit(AppLimit limit) async {
+    ref.read(blockerSyncServiceProvider).applyLocalLimit(limit);
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final uid = await ref.read(authUidProvider.future);
@@ -57,8 +83,10 @@ class LimitsActionsNotifier extends AsyncNotifier<void> {
     });
   }
 
-  /// Updates an existing [AppLimit] for the signed-in user.
+  /// Updates an existing [AppLimit] locally to native first, then backs up to Firestore.
   Future<void> updateLimit(AppLimit limit) async {
+    ref.read(blockerSyncServiceProvider).applyLocalLimit(limit);
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final uid = await ref.read(authUidProvider.future);
@@ -66,8 +94,10 @@ class LimitsActionsNotifier extends AsyncNotifier<void> {
     });
   }
 
-  /// Deletes the limit for [packageName] for the signed-in user.
+  /// Deletes the limit for [packageName] locally in native first, then in Firestore.
   Future<void> deleteLimit(String packageName) async {
+    ref.read(blockerSyncServiceProvider).removeLocalLimit(packageName);
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final uid = await ref.read(authUidProvider.future);

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../features/limits/limits_providers.dart';
 import 'router.dart';
 
 /// Root widget of FocusMeme.
@@ -12,6 +13,8 @@ class FocusMemeApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Keep native blocker storage synced with live Firestore limit updates.
+    ref.watch(limitsNativeSyncProvider);
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(

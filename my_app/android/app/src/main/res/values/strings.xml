@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_service_label">FocusMeme Blocker</string>
+    <string name="accessibility_service_description">Detects when you open a restricted app during focus sessions or after hitting its daily limit so FocusMeme can close it and show a reminder meme. All blocking runs locally on your device.</string>
+</resources>

@@ -58,14 +58,14 @@ Goal: I can add, edit, and delete app limits, and they save to Firestore.
 
 Goal: a limited app is closed on my phone, and repeat attempts play a meme.
 
-- [ ] [AI] Kotlin `AccessibilityService` (ignore keyboard, system UI, own app, launcher)
-- [ ] [AI] Block ladder: attempt 1 = close + toast (`"<App> limit reached"` vs `"<App> blocked during focus"`), attempt 2+ = close + meme (per app, per day)
-- [ ] [AI] Incremental usage tracking and exact-second timer for mid-session limit hits (pauses/cancels on app switch and `ACTION_SCREEN_OFF`; re-evaluates the foreground app on `ACTION_USER_PRESENT`/`ACTION_SCREEN_ON`)
-- [ ] [AI] Meme overlay (`TYPE_ACCESSIBILITY_OVERLAY`) using native media playback (`Media3`/`ExoPlayer` or `VideoView` + native image/GIF decoding), unskippable, ~15 s cap
-- [ ] [AI] Bundled memes (2-3 per section, in `res/raw` or `assets`) and per-section shuffle bags owned by native and persisted in native storage
-- [ ] [AI] MethodChannel `focusmeme/blocker`: `sync`, `status`, `getInstalledApps`, `getUsageStats`, `openAccessibility`, `openUsageAccess`, `openBattery`, `openAutostart` (`sync` payload: limits, strictSchedule, settings; native keeps its own SharedPreferences)
-- [ ] [AI] Dart bridge that pushes limits to native (debounced), local-first: native updates even if Firestore fails
-- [ ] [AI] Phone test checklist and a list of assumptions
+- [x] [AI] Kotlin `AccessibilityService` (ignore keyboard, system UI, own app, launcher)
+- [x] [AI] Block ladder: attempt 1 = close + toast (`"<App> limit reached"` vs `"<App> blocked during focus"`), attempt 2+ = close + meme (per app, per day)
+- [x] [AI] Incremental usage tracking and exact-second timer for mid-session limit hits (pauses/cancels on app switch and `ACTION_SCREEN_OFF`; re-evaluates the foreground app on `ACTION_USER_PRESENT`/`ACTION_SCREEN_ON`)
+- [x] [AI] Meme overlay (`TYPE_ACCESSIBILITY_OVERLAY`) using native media playback (`Media3`/`ExoPlayer` or `VideoView` + native image/GIF decoding), unskippable, ~15 s cap
+- [x] [AI] Bundled memes (2-3 per section, in `res/raw` or `assets`) and per-section shuffle bags owned by native and persisted in native storage
+- [x] [AI] MethodChannel `focusmeme/blocker`: `sync`, `status`, `getInstalledApps`, `getUsageStats`, `openAccessibility`, `openUsageAccess`, `openBattery`, `openAutostart` (`sync` payload: limits, strictSchedule, settings; native keeps its own SharedPreferences)
+- [x] [AI] Dart bridge that pushes limits to native (debounced), local-first: native updates even if Firestore fails
+- [x] [AI] Phone test checklist and a list of assumptions
 - [ ] [ME] Install on my phone, enable Accessibility and Usage Access manually
 - [ ] [ME] Run the test checklist and report failures
 - [ ] [ME] Test: lock the screen inside a limited app near its limit, unlock, and confirm the block still fires

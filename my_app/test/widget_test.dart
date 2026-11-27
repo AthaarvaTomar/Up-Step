@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:focusmeme/app/app.dart';
 import 'package:focusmeme/features/limits/limits_providers.dart';
+import 'package:focusmeme/native/blocker_channel.dart';
 import 'package:focusmeme/native/installed_app.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -12,6 +13,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
+          blockerChannelProvider.overrideWithValue(
+            BlockerChannel(isAndroidOverride: false),
+          ),
           installedAppsProvider.overrideWith((ref) async => const <InstalledApp>[]),
         ],
         child: const FocusMemeApp(),
